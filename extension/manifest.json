@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "version": "1",
+    "name": "Slohobot",
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "/pics/icon48.png"
+    },
+    "permissions": [
+        "tabs",
+        "storage",
+        "activeTab",
+        "scripting"
+    ],
+    "content_scripts": [{
+        "css": ["index.css"],
+        "js": ["app.js"],
+        "matches": ["http://*/*", "https://*/*"],
+        "all_frames": true
+      }]
+    
+}
