@@ -1,0 +1,32 @@
+* {
+    font-family: 'Inconsolata', monospace;
+    font-family: 'Playfair Display', serif;
+    background-image: url('pics/background.jpg');
+    background-size: cover;
+    color: white;
+    font-weight: bold;
+    
+}
+body {
+    background: none;
+}
+h1 {
+    color: goldenrod;
+    text-align: center;
+    background: none;
+}
+p {
+    text-align: center;
+    font-size: 20px;
+    background: none;
+}
+.ital {
+    font-style: italic;
+    background: none;
+}
+button {
+color: #016f32;
+width: 150px;
+background: goldenrod;
+text-align: center;
+}

@@ -1,0 +1,53 @@
+body {
+    background-image: url('pics/mumlava.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.block {
+    display: block;
+    border: 3px solid darkgreen;
+    background-color: #f37e2b;
+    color: white;
+    margin-block: 5px;
+    margin-inline: auto;
+    width: fit-content;
+    padding: 5px;
+}
+button {
+    border: 3px solid darkgreen;
+    background-color: #f37e2b;
+    color: white;
+    width: fit-content;
+    padding: 10px;
+    margin-inline: 5px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+.btn {
+    margin-block: 5px;
+    text-align: center;
+}
+.btnMar {
+    margin-inline: 10px;
+}
+h1 {
+    font-weight: bold;
+    padding-inline: 5px;
+}
+.round {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    border: 3px solid darkgreen;
+    background-color: #f37e2b;
+    color: white;
+    margin-block: 5px;
+    text-align: center;
+}
+button:active {
+    background-color: hsla(25, 89%, 56%, 0.85);
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>point tracker</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="block">
+<h1>Point tracker</h1>
+</div>
+
+<div class="round">
+  <h2 id="number">0</h2>
+</div>
+
+<div class="btn">
+<button id="positive-btn" onclick="add(1)">+ 1 point</button>
+<button id="positive10-btn" onclick="add(10)">+ 10 points</button>
+<button id="negative-btn" onclick="add(-1)">- 1 point</button>
+<button id="negative10-btn" onclick="add(-10)">- 10 points</button>
+</div>
+
+<div class="btn">
+<button id="save-btn" onclick="saveName()" style="margin-right:22px;">save</button>
+<button id="end-btn" onclick="end()" style="margin-left:17px;">end</button>
+</div>
+<div class="block">
+<h1 id="save">Previous participants: </h1>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
