@@ -1,6 +1,5 @@
-from transformers import AutoModel, AutoTokenizer
+
 from spellchecker import SpellChecker
-import torch
 
 
 spell = SpellChecker(language='en')
@@ -21,7 +20,7 @@ def zkontroluj_slova(text):
 
 
 def main():
-    text = input("Zadejte text ke kontrole: ")
+    text = input(" text ke kontrole: ")
     vysledky = zkontroluj_slova(text)
 
     for slovo, stav in vysledky.items():
@@ -33,3 +32,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
