@@ -1,0 +1,16 @@
+Index: django_app/views.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from rest_framework.decorators import api_view\r\nfrom rest_framework.response import Response\r\nfrom spellchecker import SpellChecker\r\nfrom collections import Counter\r\nspell = SpellChecker(language='en')\r\n\r\ndef zkontroluj_slova(text):\r\n    slova = text.split()\r\n    vysledky = {}\r\n    for index, slovo in enumerate(slova):\r\n        if slovo not in spell:\r\n            navrh = spell.correction(slovo)\r\n            vysledky[slovo] = {\r\n                \"oprava\": navrh if navrh else \"Nebylo nalezeno\",\r\n                \"id\": index\r\n\r\n            }\r\n        else:\r\n            vysledky[slovo] = {\r\n                \"id\": index\r\n            }\r\n\r\n    return vysledky\r\n\r\n\r\n\r\n@api_view(['POST'])\r\ndef process_sentence(request):\r\n    sentence = request.data.get('sentence')\r\n\r\n    if not sentence:\r\n        return Response({\"error\": \"nic neni zadáno\"}, status=400)\r\n\r\n    opravy = zkontroluj_slova(sentence)\r\n\r\n    return Response({\r\n        \"sentence\": sentence,\r\n        \"check\": opravy\r\n    })\r\n\r\n#Kontrola textu -- opakování slov, správnost smyslu věty\r\n@api_view(['POST'])\r\ndef detect_repeated_words(request):\r\n    sentence = request.data.get('sentence')\r\n\r\n    if not sentence:\r\n        return Response({\"error\": \"nic není zadáno\"}, status=400)\r\n\r\n    words = sentence.split()\r\n    total_words = len(words)\r\n    word_counts = Counter(words)\r\n\r\n    repeated_words = {\r\n        word: {\r\n            \"count\": count,\r\n            \"ratio\": round(count / total_words, 2)\r\n        }\r\n        for word, count in word_counts.items() if count > 1\r\n    }\r\n\r\n    return Response({\"opakovaná_slova\": repeated_words})\r\n\r\n\r\n#interakce s AI
+===================================================================
+diff --git a/django_app/views.py b/django_app/views.py
+--- a/django_app/views.py	
++++ b/django_app/views.py	
+@@ -61,4 +61,4 @@
+     return Response({"opakovaná_slova": repeated_words})
+ 
+ 
+-#interakce s AI
+\ No newline at end of file
++#jebu toto
+\ No newline at end of file

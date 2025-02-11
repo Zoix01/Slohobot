@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7e639d01-8c7e-47f6-80eb-bc25c9e1f787" name="Changes" comment="přidání API" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Kontrola-pravopisu" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2nPtOcDjC4ZDlhhrRhXiZHsIXzC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/MARTIN/source/Slohobot",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\MARTIN\source\Slohobot\django_app" />
+      <recent name="C:\Users\MARTIN\source\Slohobot" />
+      <recent name="C:\Users\MARTIN\source\Slohobot\dj" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7e639d01-8c7e-47f6-80eb-bc25c9e1f787" name="Changes" comment="" />
+      <created>1728886507970</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728886507970</updated>
+      <workItem from="1728886509099" duration="5139000" />
+      <workItem from="1729490271928" duration="7063000" />
+      <workItem from="1730663696131" duration="2758000" />
+      <workItem from="1730916644501" duration="2655000" />
+      <workItem from="1731312635161" duration="4454000" />
+      <workItem from="1733123588692" duration="7098000" />
+      <workItem from="1733727773433" duration="3936000" />
+      <workItem from="1733929722388" duration="561000" />
+      <workItem from="1733930306817" duration="1645000" />
+      <workItem from="1734332888805" duration="2883000" />
+      <workItem from="1737291522630" duration="2438000" />
+      <workItem from="1737296149748" duration="6324000" />
+      <workItem from="1737356456193" duration="5595000" />
+      <workItem from="1737443122029" duration="1780000" />
+      <workItem from="1737572787368" duration="8460000" />
+      <workItem from="1738566547222" duration="6924000" />
+      <workItem from="1739170751301" duration="1527000" />
+      <workItem from="1739172929149" duration="1788000" />
+      <workItem from="1739174931692" duration="3227000" />
+    </task>
+    <task id="LOCAL-00001" summary="kajak kajaků jak jaků&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;1. commit">
+      <option name="closed" value="true" />
+      <created>1728891261130</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728891261130</updated>
+    </task>
+    <task id="LOCAL-00002" summary="&#10;opravování slov v angličtině&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;oprava slov v angličtině&#10;&#10;&#10;1. commit">
+      <option name="closed" value="true" />
+      <created>1732518924879</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732518924879</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge pull request #7 from Zoix01/3-oznacovat-slova-v-textu&#10;&#10;test" />
+    <MESSAGE value="kajak kajaků jak jaků&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;1. commit" />
+    <MESSAGE value="kajak kajaků jak jaků&#10;&#10;1. commit" />
+    <MESSAGE value="&#10;opravování slov v angličtině&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;1. commit" />
+    <MESSAGE value="&#10;opravování slov v angličtině&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;oprava slov v angličtině&#10;&#10;&#10;1. commit" />
+    <MESSAGE value="&#10;přidání api&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;oprava slov v angličtině&#10;&#10;&#10;1. commit" />
+    <MESSAGE value="přidání API" />
+    <option name="LAST_COMMIT_MESSAGE" value="přidání API" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Slohobot$kontrola_pravopisu.coverage" NAME="kontrola_pravopisu Coverage Results" MODIFIED="1737357140213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
+  </component>
+</project>
