@@ -17,8 +17,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django_app import views  # Import views ze stejné složky jako urls.py
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="API Dokumentace",
+        default_version='v1',
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('api/process-sentence/', views.process_sentence, name='process_sentence'),
     path('api/detect-repeated-words/', views.detect_repeated_words, name='detect_repeated_words'),
 ]
