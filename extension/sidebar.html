@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      button {
+        width: 30%;
+        height: 25px;
+        margin: auto;
+        text-align: center;
+        background-color: #ADD8E6;
+        border: 2px solid #A9A9A9;
+        border-radius: 25px;
+        display: block;
+      }
+      button:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <button id="b1">ziskej text</button>
+
+
+    <script>
+      const btn1 = document.getElementById("b1")
+      btn1.addEventListener("click", extractText)
+      function testNgrokApi() {
+          const url = "";  
+          const response = UrlFetchApp.fetch(url, { method: "get" });
+          console.log(response.getContentText());
+      } 
+      function extractText(){
+        google.script.run
+          .withSuccessHandler(onSuccess)
+          .withFailureHandler(onFailure)
+          .extractTextFromDocument();
+      }
+      function onSuccess(result){
+        console.log(result)
+        testNgrokApi()
+      }
+      function onFailure(result){
+        console.log("Fail", result)
+      }
+    </script>
+  </body>
+</html>
