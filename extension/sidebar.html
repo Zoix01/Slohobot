@@ -22,27 +22,52 @@
     <button id="b1">ziskej text</button>
 
 
-    <script>
-      const btn1 = document.getElementById("b1")
-      btn1.addEventListener("click", extractText)
-      function testNgrokApi() {
-          const url = "";  
-          const response = UrlFetchApp.fetch(url, { method: "get" });
-          console.log(response.getContentText());
-      } 
-      function extractText(){
-        google.script.run
-          .withSuccessHandler(onSuccess)
-          .withFailureHandler(onFailure)
-          .extractTextFromDocument();
+<script>
+  // variables
+  const btn1 = document.getElementById("b1")
+  const textDokumentu = []
+  // functions
+  btn1.addEventListener("click", getParagraphsText)
+
+  function getParagraphsText() {
+    google.script.run
+      .withSuccessHandler(onSuccess)
+      .withFailureHandler(onFailure)
+      .extractTextFromParagraphs()
+  }
+
+  function onSuccess(result){
+    formatText(result)
+  }
+  function onFailure(result){
+    console.log("Fail", result)
+  }
+  
+  function formatText(text) {
+    text.forEach(p => {
+      console.log(p)
+      if(p !== ""){
+        let txt = p.split(/[ .,?!()]+/)
+        txt.forEach( x => textDokumentu.push(x))
+        console.log(textDokumentu)
       }
-      function onSuccess(result){
-        console.log(result)
-        testNgrokApi()
-      }
-      function onFailure(result){
-        console.log("Fail", result)
-      }
-    </script>
-  </body>
+    })
+    sendDataToServer(textDokumentu)
+  }
+
+  // server communication
+  function sendDataToServer(result) {
+    fetch('http://127.0.0.1:8000/api/process-sentence/', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ sentence: result }) 
+    })
+  .then(response => response.json())
+  .then(data => console.log('Success:', data))
+  .catch(error => console.error('Error:', error));
+  }
+</script>
+</body>
 </html>
