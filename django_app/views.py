@@ -1,43 +1,14 @@
-import re
-from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from spellchecker import SpellChecker
 from collections import Counter
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-
 spell = SpellChecker(language='en')
-
-def zkontroluj_slova(text):
-    """
-    Funkce kontroluje pravopis slov ve větě.
-    - Odstraní interpunkci
-    - Zkontroluje správnost slov
-    - Navrhne opravy
-    """
-    text = re.sub(r'[^\w\s]', '', text)  # Odstranění interpunkce
-    slova = text.split()
-    vysledky = {}
-
-    for index, slovo in enumerate(slova):
-        if slovo not in spell:
-            navrhy = list(spell.candidates(slovo))
-            navrh = navrhy[0] if navrhy else "Nebylo nalezeno"
-            vysledky[slovo] = {
-                "oprava": navrh,
-                "možnosti": navrhy,
-                "id": index
-            }
-        else:
-            vysledky[slovo] = {"id": index}
-
-    return vysledky
-
 
 @swagger_auto_schema(
     method='post',
-    operation_description="Zpracuje větu a vrátí upravenou verzi (například převedením na velká písmena).",
+    operation_description="Zpracuje větu a vrátí upravenou verzi.",
     request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
@@ -54,18 +25,14 @@ def zkontroluj_slova(text):
 )
 @api_view(['POST'])
 def process_sentence(request):
-    sentence = request.data.get('sentence')
-
-    if not sentence:
-        return Response({"error": "Nic není zadáno"}, status=400)
-
-    processed_sentence = sentence.upper()
+    sentence = request.data.get('sentence', '')
+    processed_sentence = sentence.upper()  # Například převod na velká písmena
     return Response({'processed_sentence': processed_sentence})
 
 
 @swagger_auto_schema(
     method='post',
-    operation_description="Detekuje opakující se slova a spočítá jejich výskyt.",
+    operation_description="Detekuje opakující se slova ve větě.",
     request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
@@ -76,28 +43,62 @@ def process_sentence(request):
     responses={200: openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
-            'opakovaná_slova': openapi.Schema(
-                type=openapi.TYPE_OBJECT,
-                description="Slova, která se opakují, včetně počtu a procentuálního výskytu",
-                additional_properties=openapi.Schema(
-                    type=openapi.TYPE_OBJECT,
-                    properties={
-                        "count": openapi.Schema(type=openapi.TYPE_INTEGER, description="Počet výskytů"),
-                        "ratio": openapi.Schema(type=openapi.TYPE_NUMBER, format="float", description="Podíl výskytů na celkovém počtu slov")
-                    }
-                )
-            )
+            'repeated_words': openapi.Schema(type=openapi.TYPE_ARRAY,
+                                             items=openapi.Items(type=openapi.TYPE_STRING),
+                                             description="Seznam opakujících se slov")
         }
     )}
 )
 @api_view(['POST'])
 def detect_repeated_words(request):
+    sentence = request.data.get('sentence', '')
+    words = sentence.lower().split()
+    repeated = list(set([word for word in words if words.count(word) > 1]))
+    return Response({'repeated_words': repeated})
+
+def zkontroluj_slova(text):
+    slova = text.split()
+    vysledky = {}
+    for index, slovo in enumerate(slova):
+        if slovo not in spell:
+            navrh = spell.correction(slovo)
+            vysledky[slovo] = {
+                "oprava": navrh if navrh else "Nebylo nalezeno",
+                "id": index
+
+            }
+        else:
+            vysledky[slovo] = {
+                "id": index
+            }
+
+    return vysledky
+
+
+#opravit ignorování teček u slov (slovo. vyhodnotí špatně) opravit připisování pořadí
+@api_view(['POST'])
+def process_sentence(request):
     sentence = request.data.get('sentence')
 
     if not sentence:
-        return Response({"error": "Nic není zadáno"}, status=400)
+        return Response({"error": "nic neni zadáno"}, status=400)
 
-    words = re.sub(r'[^\w\s]', '', sentence).split()  # Odstranění interpunkce
+    opravy = zkontroluj_slova(sentence)
+
+    return Response({
+        "sentence": sentence,
+        "check": opravy
+    })
+
+#Kontrola textu -- opakování slov, správnost smyslu věty
+@api_view(['POST'])
+def detect_repeated_words(request):
+    sentence = request.data.get('sentence')
+
+    if not sentence:
+        return Response({"error": "nic není zadáno"}, status=400)
+
+    words = sentence.split()
     total_words = len(words)
     word_counts = Counter(words)
 
@@ -112,52 +113,4 @@ def detect_repeated_words(request):
     return Response({"opakovaná_slova": repeated_words})
 
 
-@swagger_auto_schema(
-    method='post',
-    operation_description="Zkontroluje pravopis věty a navrhne opravy.",
-    request_body=openapi.Schema(
-        type=openapi.TYPE_OBJECT,
-        properties={
-            'sentence': openapi.Schema(type=openapi.TYPE_STRING, description="Vstupní věta")
-        },
-        required=['sentence']
-    ),
-    responses={200: openapi.Schema(
-        type=openapi.TYPE_OBJECT,
-        properties={
-            'sentence': openapi.Schema(type=openapi.TYPE_STRING, description="Původní věta"),
-            'check': openapi.Schema(
-                type=openapi.TYPE_OBJECT,
-                description="Slova s navrženými opravami",
-                additional_properties=openapi.Schema(
-                    type=openapi.TYPE_OBJECT,
-                    properties={
-                        "oprava": openapi.Schema(type=openapi.TYPE_STRING, description="Navrhovaná oprava"),
-                        "možnosti": openapi.Schema(
-                            type=openapi.TYPE_ARRAY,
-                            items=openapi.Items(type=openapi.TYPE_STRING),
-                            description="Možnosti oprav"
-                        ),
-                        "id": openapi.Schema(type=openapi.TYPE_INTEGER, description="Pořadí slova ve větě")
-                    }
-                )
-            )
-        }
-    )}
-)
-@api_view(['POST'])
-def check_spelling(request):
-    """
-    Endpoint pro kontrolu pravopisu ve větě.
-    """
-    sentence = request.data.get('sentence')
-
-    if not sentence:
-        return Response({"error": "Nic není zadáno"}, status=400)
-
-    opravy = zkontroluj_slova(sentence)
-
-    return Response({
-        "sentence": sentence,
-        "check": opravy
-    })
+#interakce s AI
