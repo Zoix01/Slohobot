@@ -45,13 +45,13 @@
   
   function formatText(text) {
     text.forEach(p => {
-      console.log(p)
       if(p !== ""){
-        let txt = p.split(/[ .,?!()]+/)
+        let txt = p.split(/[ .,?!()\s]+/)
         txt.forEach( x => textDokumentu.push(x))
-        console.log(textDokumentu)
       }
     })
+    //textDokumentu.filter(x => x !== "" || x !== " ")
+    console.log(textDokumentu)
     sendDataToServer(textDokumentu)
   }
 
