@@ -25,15 +25,26 @@
 <script>
   // variables
   const btn1 = document.getElementById("b1")
-  const textDokumentu = []
+  let textDokumentu = []
+  let responses = []
+  let objectArray = []
+  const opraveneArray = []
   // functions
   btn1.addEventListener("click", getParagraphsText)
 
   function getParagraphsText() {
+    getTextForServer()
     google.script.run
       .withSuccessHandler(onSuccess)
       .withFailureHandler(onFailure)
       .extractTextFromParagraphs()
+  }
+
+  function getTextForServer(){
+    google.script.run
+      .withSuccessHandler(sendDataToServer)
+      .withFailureHandler(onFailure)
+      .extractTextForServer()
   }
 
   function onSuccess(result){
@@ -50,24 +61,66 @@
         txt.forEach( x => textDokumentu.push(x))
       }
     })
-    //textDokumentu.filter(x => x !== "" || x !== " ")
-    console.log(textDokumentu)
-    sendDataToServer(textDokumentu)
+    textDokumentu = textDokumentu.filter(x => x.trim() !== "")
+    makeObjectArray(textDokumentu)
+  }
+
+  function makeObjectArray(text){
+    objectArray = text.map((word, index) => ({
+      "original": word,
+      "id": index,
+      "oprava": null
+    }))
+  }
+  
+  function updateOprav(original, oprava){
+    if (!oprava || !oprava.check) {
+        console.error("Invalid oprava structure:", oprava);
+        return;
+    }
+
+    const update = original.map(item => {
+        const key = item.original.trim().toLowerCase(); // Normalize key
+        const dataOpravy = oprava.check[key]; // Access correction data
+
+        if (!dataOpravy) {
+            console.warn(`No correction found for: ${item.original}`);
+        }
+
+        return {
+            ...item,
+            oprava: dataOpravy?.oprava || null // Set correction if found
+        };
+    });
+
+    opraveneArray.push(update);
+    console.log(opraveneArray);
   }
 
   // server communication
-  function sendDataToServer(result) {
-    fetch('http://127.0.0.1:8000/api/process-sentence/', {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ sentence: result }) 
-    })
-  .then(response => response.json())
-  .then(data => console.log('Success:', data))
-  .catch(error => console.error('Error:', error));
-  }
+  async function sendDataToServer(result) {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/process-sentence/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ sentence: result }) 
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json()
+        responses.push(data)
+        const kontrolaOprav = responses[0].check
+        updateOprav(objectArray, kontrolaOprav)
+    } catch (error) {
+        console.error('Error:', error);
+        return null 
+    }
+}
+
 </script>
 </body>
 </html>

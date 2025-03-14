@@ -11,9 +11,14 @@ function showSidebar() {
   DocumentApp.getUi()
     .showSidebar(html)
 }
+const document = DocumentApp.getActiveDocument()
 function extractTextFromParagraphs() {
-  const document = DocumentApp.getActiveDocument()
   const paragraphs = document.getBody().getParagraphs()
   const paragraphsText = paragraphs.map( p => {return p.getText()})
   return paragraphsText
 }
+
+function extractTextForServer() {
+  return document.getBody().getText()
+}
+
