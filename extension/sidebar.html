@@ -62,6 +62,7 @@
       }
     })
     textDokumentu = textDokumentu.filter(x => x.trim() !== "")
+    textDokumentu.forEach(x => x.toLowerCase())
     makeObjectArray(textDokumentu)
   }
 
@@ -73,29 +74,16 @@
     }))
   }
   
-  function updateOprav(original, oprava){
-    if (!oprava || !oprava.check) {
-        console.error("Invalid oprava structure:", oprava);
-        return;
+function updateOprav(original, oprava) {
+  original.forEach( word => {
+    const opraveneSlovo = oprava[word.original]
+    if(opraveneSlovo && opraveneSlovo.oprava){
+      if(opraveneSlovo.oprava !== 'Nebylo nalezeno')
+      word.oprava = opraveneSlovo.oprava
     }
-
-    const update = original.map(item => {
-        const key = item.original.trim().toLowerCase(); // Normalize key
-        const dataOpravy = oprava.check[key]; // Access correction data
-
-        if (!dataOpravy) {
-            console.warn(`No correction found for: ${item.original}`);
-        }
-
-        return {
-            ...item,
-            oprava: dataOpravy?.oprava || null // Set correction if found
-        };
-    });
-
-    opraveneArray.push(update);
-    console.log(opraveneArray);
-  }
+  })
+  console.log(original)
+}
 
   // server communication
   async function sendDataToServer(result) {
@@ -114,6 +102,7 @@
         const data = await response.json()
         responses.push(data)
         const kontrolaOprav = responses[0].check
+        console.log(objectArray, kontrolaOprav)
         updateOprav(objectArray, kontrolaOprav)
     } catch (error) {
         console.error('Error:', error);
