@@ -29,13 +29,15 @@
   let responses = []
   let objectArray = []
   const opraveneArray = []
+  let textNaOpravu = []
   // functions
   btn1.addEventListener("click", getParagraphsText)
 
   function getParagraphsText() {
+    textDokumentu = []
     getTextForServer()
     google.script.run
-      .withSuccessHandler(onSuccess)
+      .withSuccessHandler(formatText)
       .withFailureHandler(onFailure)
       .extractTextFromParagraphs()
   }
@@ -47,14 +49,12 @@
       .extractTextForServer()
   }
 
-  function onSuccess(result){
-    formatText(result)
-  }
   function onFailure(result){
     console.log("Fail", result)
   }
   
   function formatText(text) {
+    let textNaOpravu = text
     text.forEach(p => {
       if(p !== ""){
         let txt = p.split(/[ .,?!()\s]+/)
@@ -83,8 +83,21 @@ function updateOprav(original, oprava) {
     }
   })
   console.log(original)
+  oznaceniChyb()
 }
 
+function oznaceniChyb() {
+  let slovaNaOpravu = []
+  objectArray.forEach(slovo => {
+    if (slovo.oprava !== null){
+      slovaNaOpravu.push(slovo.original)
+    }
+  })
+  slovaNaOpravu.forEach(slovo => {
+    google.script.run
+      .opravaSlov(slovo)
+  })
+}
   // server communication
   async function sendDataToServer(result) {
     try {
@@ -102,7 +115,6 @@ function updateOprav(original, oprava) {
         const data = await response.json()
         responses.push(data)
         const kontrolaOprav = responses[0].check
-        console.log(objectArray, kontrolaOprav)
         updateOprav(objectArray, kontrolaOprav)
     } catch (error) {
         console.error('Error:', error);

@@ -22,3 +22,13 @@ function extractTextForServer() {
   return document.getBody().getText()
 }
 
+function opravaSlov(slovo) {
+  var hledaniSlova = document.getBody().findText(slovo)
+  Logger.log(hledaniSlova)
+  if (hledaniSlova !== null) {
+    var naOpraveni = hledaniSlova.getElement().asText()
+    var zacatekSlova = hledaniSlova.getStartOffset()
+    var konecSlova = hledaniSlova.getEndOffsetInclusive()
+    naOpraveni.setBackgroundColor(zacatekSlova, konecSlova, "#FFFF00")
+  }
+}
