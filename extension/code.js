@@ -12,6 +12,7 @@ function showSidebar() {
     .showSidebar(html)
 }
 const document = DocumentApp.getActiveDocument()
+const body = document.getBody()
 function extractTextFromParagraphs() {
   const paragraphs = document.getBody().getParagraphs()
   const paragraphsText = paragraphs.map( p => {return p.getText()})
@@ -23,12 +24,11 @@ function extractTextForServer() {
 }
 
 function opravaSlov(slovo) {
-  var hledaniSlova = document.getBody().findText(slovo)
+  const hledaniSlova = document.getBody().findText(slovo)
   Logger.log(hledaniSlova)
   if (hledaniSlova !== null) {
-    var naOpraveni = hledaniSlova.getElement().asText()
-    var zacatekSlova = hledaniSlova.getStartOffset()
-    var konecSlova = hledaniSlova.getEndOffsetInclusive()
-    naOpraveni.setBackgroundColor(zacatekSlova, konecSlova, "#FFFF00")
-  }
-}
+    const naOpraveni = hledaniSlova.getElement().asText()
+    const zacatekSlova = hledaniSlova.getStartOffset()
+    const konecSlova = hledaniSlova.getEndOffsetInclusive()
+    naOpraveni.setBackgroundColor(zacatekSlova, konecSlova, "#FF0000")
+}}

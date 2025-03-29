@@ -115,6 +115,7 @@ function oznaceniChyb() {
         const data = await response.json()
         responses.push(data)
         const kontrolaOprav = responses[0].check
+        console.log(kontrolaOprav)
         updateOprav(objectArray, kontrolaOprav)
     } catch (error) {
         console.error('Error:', error);
