@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e639d01-8c7e-47f6-80eb-bc25c9e1f787" name="Changes" comment="api fix">
+    <list default="true" id="7e639d01-8c7e-47f6-80eb-bc25c9e1f787" name="Changes" comment="ai update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Slohobot/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Slohobot/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/django_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/django_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +93,7 @@
       <workItem from="1741453466128" duration="126000" />
       <workItem from="1741593173478" duration="5948000" />
       <workItem from="1742058892028" duration="229000" />
-      <workItem from="1743007744397" duration="8765000" />
+      <workItem from="1743007744397" duration="9591000" />
     </task>
     <task id="LOCAL-00001" summary="kajak kajaků jak jaků&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;1. commit">
       <option name="closed" value="true" />
@@ -120,7 +119,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743009353393</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="ai update">
+      <option name="closed" value="true" />
+      <created>1743404791277</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743404791278</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,7 +153,8 @@
     <MESSAGE value="&#10;přidání api&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;oprava slov v angličtině&#10;&#10;&#10;1. commit" />
     <MESSAGE value="přidání API" />
     <MESSAGE value="api fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="api fix" />
+    <MESSAGE value="ai update" />
+    <option name="LAST_COMMIT_MESSAGE" value="ai update" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Slohobot$kontrola_pravopisu.coverage" NAME="kontrola_pravopisu Coverage Results" MODIFIED="1737357140213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
