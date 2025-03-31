@@ -17,6 +17,8 @@ generator = pipeline('text-generation', model=model, tokenizer=tokenizer)
 app = Flask(__name__)
 
 def zkontroluj_slova(text):
+    for znak in ["’", "‘", "´"]:
+        text = text.replace(znak, "'")
     slova = text.split()
     vysledky = {}
     id_counter = 0
