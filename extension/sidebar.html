@@ -4,8 +4,8 @@
     <base target="_top">
     <style>
       button {
-        width: 30%;
-        height: 25px;
+        width: 40%;
+        height: 30px;
         margin: auto;
         text-align: center;
         background-color: #ADD8E6;
@@ -19,12 +19,12 @@
     </style>
   </head>
   <body>
-    <button id="b1">ziskej text</button>
-
-
+    <button id="b1">nalezeni chyb</button>
+    <button id="b2" style ="margin-top: 5px;">oprava chyb</button>
 <script>
   // variables
   const btn1 = document.getElementById("b1")
+  const btn2 = document.getElementById("b2")
   let textDokumentu = []
   let responses = []
   let objectArray = []
@@ -32,6 +32,7 @@
   let textNaOpravu = []
   // functions
   btn1.addEventListener("click", getParagraphsText)
+  btn2.addEventListener("click", smazaniSlov)
 
   function getParagraphsText() {
     textDokumentu = []
@@ -82,15 +83,15 @@ function updateOprav(original, oprava) {
       word.oprava = opraveneSlovo.oprava
     }
   })
-  console.log(original)
   oznaceniChyb()
 }
 
 function oznaceniChyb() {
   let slovaNaOpravu = []
+  let opraveneSlova = []
   objectArray.forEach(slovo => {
     if (slovo.oprava !== null){
-      slovaNaOpravu.push(slovo.original)
+      slovaNaOpravu.push(slovo)
     }
   })
   slovaNaOpravu.forEach(slovo => {
@@ -98,6 +99,12 @@ function oznaceniChyb() {
       .opravaSlov(slovo)
   })
 }
+
+//function smazaniSlov() {
+ // console.log("12")
+  //google.script.run
+   // .smazaniSlov()
+//}
   // server communication
   async function sendDataToServer(result) {
     try {
@@ -115,7 +122,6 @@ function oznaceniChyb() {
         const data = await response.json()
         responses.push(data)
         const kontrolaOprav = responses[0].check
-        console.log(kontrolaOprav)
         updateOprav(objectArray, kontrolaOprav)
     } catch (error) {
         console.error('Error:', error);

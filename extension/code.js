@@ -13,6 +13,7 @@ function showSidebar() {
 }
 const document = DocumentApp.getActiveDocument()
 const body = document.getBody()
+
 function extractTextFromParagraphs() {
   const paragraphs = document.getBody().getParagraphs()
   const paragraphsText = paragraphs.map( p => {return p.getText()})
@@ -23,12 +24,39 @@ function extractTextForServer() {
   return document.getBody().getText()
 }
 
+let naOpraveni = null
+let zacatekSlova = null
+let konecSlova = null
+
 function opravaSlov(slovo) {
-  const hledaniSlova = document.getBody().findText(slovo)
-  Logger.log(hledaniSlova)
+  const hledaniSlova = document.getBody().findText(slovo.original)
   if (hledaniSlova !== null) {
-    const naOpraveni = hledaniSlova.getElement().asText()
-    const zacatekSlova = hledaniSlova.getStartOffset()
-    const konecSlova = hledaniSlova.getEndOffsetInclusive()
-    naOpraveni.setBackgroundColor(zacatekSlova, konecSlova, "#FF0000")
+    naOpraveni = hledaniSlova.getElement().asText()
+    zacatekSlova = hledaniSlova.getStartOffset()
+    konecSlova = hledaniSlova.getEndOffsetInclusive()
+    naOpraveni.setStrikethrough(zacatekSlova, konecSlova, true)
+    naOpraveni.insertText(konecSlova + 1, slovo.oprava)
+    const delkaOpravenehoSlova = konecSlova + slovo.oprava.length
+    naOpraveni.setStrikethrough(konecSlova + 1, delkaOpravenehoSlova, false)
+  naOpraveni = hledaniSlova.getElement().asText()
+  
+
 }}
+
+function smazaniSlov() {
+  console.log("1")
+  const paragraphs = document.getBody().getParagraphs()
+  paragraphs.forEach(paragraph => {
+    const textNaEdit = paragraph.editAsText()
+    const text = textNaEdit.getText()
+    for (let i = text.length - 1; i >= 0; i --) {
+      const attributes = textNaEdit.getAttributes(i)
+      console.log(i)
+      if(attributes[DocumentApp.Attribute.STRIKETHROUGH]) {
+        console.log("bruh")
+        textNaEdit.deleteText(i, i)
+      }
+    }
+  })
+}
+
