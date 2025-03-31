@@ -39,7 +39,8 @@ function opravaSlov(slovo) {
     const delkaOpravenehoSlova = konecSlova + slovo.oprava.length
     naOpraveni.setStrikethrough(konecSlova + 1, delkaOpravenehoSlova, false)
   naOpraveni = hledaniSlova.getElement().asText()
-  
+  zacatekSlova = hledaniSlova.getStartOffset()
+  naOpraveni.
 
 }}
 
