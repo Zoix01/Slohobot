@@ -36,6 +36,8 @@
 
   function getParagraphsText() {
     textDokumentu = []
+    responses = []
+    objectArray = []
     getTextForServer()
     google.script.run
       .withSuccessHandler(formatText)
@@ -100,11 +102,11 @@ function oznaceniChyb() {
   })
 }
 
-//function smazaniSlov() {
- // console.log("12")
-  //google.script.run
-   // .smazaniSlov()
-//}
+function smazaniSlov() {
+  console.log("12")
+  google.script.run
+    .smazaniSlov()
+}
   // server communication
   async function sendDataToServer(result) {
     try {
