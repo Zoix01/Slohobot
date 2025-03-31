@@ -35,5 +35,7 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('api/process-sentence/', views.process_sentence, name='process_sentence'),
     path('api/detect-repeated-words/', views.detect_repeated_words, name='detect_repeated_words'),
+    path('api/ai-response/', views.ai_response, name='detect_repeated_words'),
+    path('api/ai-text-continue/', views.ai_text_continue, name='detect_repeated_words'),
 ]
 

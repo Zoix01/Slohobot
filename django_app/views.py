@@ -5,11 +5,20 @@ from rest_framework.response import Response
 from spellchecker import SpellChecker
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
+from flask import Flask, request, jsonify
 
 spell = SpellChecker(language='en')
 
+model_name = "gpt2"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(model_name)
+generator = pipeline('text-generation', model=model, tokenizer=tokenizer)
+app = Flask(__name__)
 
 def zkontroluj_slova(text):
+    for znak in ["’", "‘", "´"]:
+        text = text.replace(znak, "'")
     slova = text.split()
     vysledky = {}
     id_counter = 0
@@ -102,3 +111,26 @@ def detect_repeated_words(request):
                 "ratio": round(word_counts[clean_word] / total_words, 2)
             }
     return Response({"opakovana_slova": repeated_words})
+
+
+@api_view(['POST'])
+def ai_response(request):
+    sentence = request.data.get('sentence')
+    if not sentence:
+        return Response({'error': 'Žádný vstup nebyl poskytnut'}, status=400)
+    generated = generator(sentence, max_length=100, num_return_sequences=1)
+    answer = generated[0]['generated_text']
+    return Response({'response': answer})
+
+@api_view(['POST'])
+def ai_text_continue(request):
+    sentence = request.data.get('sentence')
+    if not sentence:
+        return Response({'error': 'Žádný vstup nebyl poskytnut'}, status=400)
+
+    prefix = "finish this text: "
+    full_prompt = prefix + sentence
+    generated = generator(full_prompt, max_length=150, num_return_sequences=1)
+    answer = generated[0]['generated_text']
+    return Response({'response': answer})
+
