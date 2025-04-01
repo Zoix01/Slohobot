@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-kh+bqml*4%%-gz%6$utj*l$12f(ciigxd@2a_9!n%8qb@q(l=c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://slohobot.onrender.com"]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
