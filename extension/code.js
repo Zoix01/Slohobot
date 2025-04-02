@@ -46,6 +46,6 @@ function opravaSlov(slovo) {
 }
 
 function smazaniSlov() {
-  body.replaceText("\\*\\S+", "")
+  body.replaceText("\\s+\\*\\S+", "")
 }
 
