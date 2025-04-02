@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7e639d01-8c7e-47f6-80eb-bc25c9e1f787" name="Changes" comment="Server update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Slohobot/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Slohobot/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,7 +94,7 @@
       <workItem from="1741453466128" duration="126000" />
       <workItem from="1741593173478" duration="5948000" />
       <workItem from="1742058892028" duration="229000" />
-      <workItem from="1743007744397" duration="16601000" />
+      <workItem from="1743007744397" duration="23625000" />
     </task>
     <task id="LOCAL-00001" summary="kajak kajaků jak jaků&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;1. commit">
       <option name="closed" value="true" />
@@ -199,7 +200,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743518135960</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Server update">
+      <option name="closed" value="true" />
+      <created>1743521045555</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1743521045555</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
