@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e639d01-8c7e-47f6-80eb-bc25c9e1f787" name="Changes" comment="ai update">
+    <list default="true" id="7e639d01-8c7e-47f6-80eb-bc25c9e1f787" name="Changes" comment="Server update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/django_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/django_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +93,7 @@
       <workItem from="1741453466128" duration="126000" />
       <workItem from="1741593173478" duration="5948000" />
       <workItem from="1742058892028" duration="229000" />
-      <workItem from="1743007744397" duration="9591000" />
+      <workItem from="1743007744397" duration="16601000" />
     </task>
     <task id="LOCAL-00001" summary="kajak kajaků jak jaků&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;1. commit">
       <option name="closed" value="true" />
@@ -127,7 +127,79 @@
       <option name="project" value="LOCAL" />
       <updated>1743404791278</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="ai update">
+      <option name="closed" value="true" />
+      <created>1743405616425</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1743405616425</updated>
+    </task>
+    <task id="LOCAL-00006" summary="ai update">
+      <option name="closed" value="true" />
+      <created>1743405645650</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1743405645650</updated>
+    </task>
+    <task id="LOCAL-00007" summary="apostrof fix">
+      <option name="closed" value="true" />
+      <created>1743405659458</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1743405659458</updated>
+    </task>
+    <task id="LOCAL-00008" summary="apostrof fix">
+      <option name="closed" value="true" />
+      <created>1743405804769</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1743405804769</updated>
+    </task>
+    <task id="LOCAL-00009" summary="apostrof fix">
+      <option name="closed" value="true" />
+      <created>1743405819896</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1743405819896</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Server update">
+      <option name="closed" value="true" />
+      <created>1743514565767</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1743514565767</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Server update">
+      <option name="closed" value="true" />
+      <created>1743516356252</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1743516356252</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Server update">
+      <option name="closed" value="true" />
+      <created>1743516387470</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1743516387470</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Server update">
+      <option name="closed" value="true" />
+      <created>1743518135960</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1743518135960</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,7 +226,10 @@
     <MESSAGE value="přidání API" />
     <MESSAGE value="api fix" />
     <MESSAGE value="ai update" />
-    <option name="LAST_COMMIT_MESSAGE" value="ai update" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/feature/swagger' into feature/swagger" />
+    <MESSAGE value="apostrof fix" />
+    <MESSAGE value="Server update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Server update" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Slohobot$kontrola_pravopisu.coverage" NAME="kontrola_pravopisu Coverage Results" MODIFIED="1737357140213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
