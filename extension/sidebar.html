@@ -60,7 +60,7 @@
     let textNaOpravu = text
     text.forEach(p => {
       if(p !== ""){
-        let txt = p.split(/[ .,?!()\s]+/)
+        let txt = p.split(/[ .,:?!()\s]+/)
         txt.forEach( x => textDokumentu.push(x))
       }
     })
