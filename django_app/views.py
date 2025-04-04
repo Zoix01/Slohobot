@@ -110,7 +110,7 @@ def detect_repeated_words(request):
                 "count": word_counts[clean_word],
                 "ratio": round(word_counts[clean_word] / total_words, 2)
             }
-    return Response({repeated_words})
+    return Response(repeated_words)
 
 
 @api_view(['POST'])
@@ -120,7 +120,7 @@ def ai_response(request):
         return Response({'error': 'Žádný vstup nebyl poskytnut'}, status=400)
     generated = generator(sentence, max_length=100, num_return_sequences=1)
     answer = generated[0]['generated_text']
-    return Response({answer})
+    return Response(answer)
 
 @api_view(['POST'])
 def ai_text_continue(request):
@@ -132,5 +132,5 @@ def ai_text_continue(request):
     full_prompt = prefix + sentence
     generated = generator(full_prompt, max_length=150, num_return_sequences=1)
     answer = generated[0]['generated_text']
-    return Response({answer})
+    return Response(answer)
 
