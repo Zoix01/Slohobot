@@ -15,9 +15,6 @@ function showSidebar() {
 
 const document = DocumentApp.getActiveDocument()
 const body = document.getBody()
-let naOpraveni = null
-let zacatekSlova = null
-let konecSlova = null
 
 function extractTextForServer() {
   return document.getBody().getText()
@@ -29,27 +26,38 @@ function extractTextFromParagraphs() {
   return paragraphsText
 }
 
-function opravaSlov(slovo) {
-  let hledaniSlova = document.getBody().findText(slovo.original)
-  if (hledaniSlova !== null) {
-    naOpraveni = hledaniSlova.getElement().asText()
-    zacatekSlova = hledaniSlova.getStartOffset()
-    konecSlova = hledaniSlova.getEndOffsetInclusive()
-    naOpraveni.setStrikethrough(zacatekSlova, konecSlova, true)
-    naOpraveni.insertText(konecSlova + 1, " " + slovo.oprava)
-    const delkaOpravenehoSlova = konecSlova + slovo.oprava.length
-    naOpraveni.setStrikethrough(konecSlova + 1, delkaOpravenehoSlova + 1, false)
+function wordCorrection(word) {
+  let wordSearch = document.getBody().findText(word.original)
+  while (wordSearch !== null) {
+    let forCorrection = wordSearch.getElement().asText()
+    let start = wordSearch.getStartOffset()
+    let end = wordSearch.getEndOffsetInclusive()
+    forCorrection.setStrikethrough(start, end, true)
+    forCorrection.insertText(end + 1, " " + word.correction)
+    const correctedWordLength = end + word.correction.length
+    forCorrection.setStrikethrough(end + 1, correctedWordLength + 1, false)
+    wordSearch = body.findText(word.original, wordSearch)
   }
-  hledaniSlova = document.getBody().findText(slovo.original)
-  if (hledaniSlova !== null) {
-    naOpraveni = hledaniSlova.getElement().asText()
-    zacatekSlova = hledaniSlova.getStartOffset()
-    naOpraveni.insertText(zacatekSlova, "*")
+  let wordSearch1 = document.getBody().findText(word.original)
+  while (wordSearch1 !== null) {
+    let forCorrection = wordSearch1.getElement().asText()
+    let start = wordSearch1.getStartOffset()
+    forCorrection.insertText(start, "*")
+    wordSearch1 = body.findText(word.original, wordSearch1)
   }
 }
 
-function smazaniSlov() {
-  body.replaceText("\\s+\\*\\S+", "")
+function deleteWords() {
+  body.replaceText("(?:^|\\s+)\\*\\S+", "")
 }
 
-
+function markRepetition(regex) {
+  let repeatedWord = body.findText(regex)
+  while (repeatedWord !== null) {
+    let element = repeatedWord.getElement().asText()
+    let start = repeatedWord.getStartOffset()
+    let end = repeatedWord.getEndOffsetInclusive()
+    element.setBackgroundColor(start, end, "#FF0000")
+    repeatedWord = body.findText(regex, repeatedWord)
+  }
+}

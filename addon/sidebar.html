@@ -4,7 +4,7 @@
     <base target="_top">
     <style>
       button {
-        width: 40%;
+        width: 50%;
         height: 30px;
         margin: auto;
         text-align: center;
@@ -16,36 +16,87 @@
       button:hover {
         transform: scale(1.1);
       }
+      input {
+        width: 65%;
+        margin-inline: auto;
+        margin-top: 10px;
+        display: block;
+        border: 2px solid #A9A9A9;
+        background-color: #ADD8E6;
+      }
+      textarea {
+        overflow-y: scroll;
+        margin-inline: auto;
+        margin-top: 3px;
+        display: block;
+        width: 95%;
+        height: 80px;
+        border: 2px solid #A9A9A9;
+        background-color: #ADD8E6;
+        resize: none;
+      }
     </style>
   </head>
   <body>
-    <button id="b1">nalezení chyb</button>
-    <button id="b2" style ="margin-top: 5px;">oprava chyb</button>
-    <button id="b3" style ="margin-top: 5px;">opakování slov</button>
+    <button id="b1">find mistakes</button>
+    <button id="b2" style ="margin-top: 10px;">correct mistakes</button>
+    <button id="b3" style ="margin-top: 10px;">word repetition</button>
+    <input type="text" id="inputField1" value="Sentence to fill in"></input>
+    <button id="b4" style ="margin-top: 5px;">fill in the sentence</button>
+    <textarea id="textArea1"></textarea>
+    <input type="text" id="inputField2" value="Question"></input>
+    <button id="b5" style ="margin-top: 5px;">Answer the question</button>
+    <textarea id="textArea2"></textarea>
 <script>
   // variables
   const btn1 = document.getElementById("b1")
   const btn2 = document.getElementById("b2")
   const btn3 = document.getElementById("b3")
-  let textDokumentu = []
+  const btn4 = document.getElementById("b4")
+  const btn5 = document.getElementById("b5")
+  const inputField1 = document.getElementById("inputField1")
+  const inputField2 = document.getElementById("inputField2")
+  const outputField1 = document.getElementById("textArea1")
+  const outputField2 = document.getElementById("textArea2")
+  let documentText = []
   let responses = []
   let objectArray = []
-  const opraveneArray = []
-  let textNaOpravu = []
+  const correctedArrays = []
+  let textForCorrection = []
   // functions
+
+  inputField1.onfocus = () => {
+    if (inputField1.value === "Sentence to fill in") {
+      inputField1.value = ""
+    }
+  }
+  inputField2.onfocus = () => {
+    if (inputField2.value === "Question") {
+      inputField2.value = ""
+    }
+  }
+  inputField1.addEventListener("dblclick", () => {
+    inputField1.value = ""
+  })
+  inputField2.addEventListener("dblclick", () => {
+    inputField2.value = ""
+  })
+
   btn1.addEventListener("click", getParagraphsText)
-  btn2.addEventListener("click", smazaniSlov)
-  btn3.addEventListener("click", detekceOpakovani)
+  btn2.addEventListener("click", deleteWords)
+  btn3.addEventListener("click", repetitionDetection)
+  btn4.addEventListener("click", fillTheSentence)
+  btn5.addEventListener("click", answerTheQuestion)
 
   function getParagraphsText() {
-    textDokumentu = []
+    documentText = []
     responses = []
     objectArray = []
-    getTextForServer()
     google.script.run
       .withSuccessHandler(formatText)
       .withFailureHandler(onFailure)
       .extractTextFromParagraphs()
+    getTextForServer()
   }
 
   function getTextForServer(){
@@ -60,58 +111,68 @@
   }
   
   function formatText(text) {
-    let textNaOpravu = text
+    let textForCorrection = text
     text.forEach(p => {
       if(p !== ""){
         let txt = p.split(/[ .,:?!()\s]+/)
-        txt.forEach( x => textDokumentu.push(x))
+        txt.forEach( x => documentText.push(x))
       }
     })
-    textDokumentu = textDokumentu.filter(x => x.trim() !== "")
-    textDokumentu.forEach(x => x.toLowerCase())
-    makeObjectArray(textDokumentu)
+    documentText = documentText.filter(x => x.trim() !== "")
+    documentText.forEach(x => x.toLowerCase())
+    makeObjectArray(documentText)
   }
 
   function makeObjectArray(text){
     objectArray = text.map((word, index) => ({
       "original": word,
       "id": index,
-      "oprava": null
+      "correction": null
     }))
   }
   
-function updateOprav(original, oprava) {
+function correctionUpdate(original, correction) {
+  console.log(correction)
+  console.log(original)
   original.forEach( word => {
-    const opraveneSlovo = oprava[word.original]
-    if(opraveneSlovo && opraveneSlovo.oprava){
-      if(opraveneSlovo.oprava !== 'Nebylo nalezeno')
-      word.oprava = opraveneSlovo.oprava
+    const isCorrection = correction[word.original]
+    if(isCorrection && isCorrection.oprava){
+      if(isCorrection.oprava !== 'Nebylo nalezeno')
+      word.correction = isCorrection.oprava
     }
   })
-  oznaceniChyb()
+  markMistakes()
 }
 
-function oznaceniChyb() {
-  let slovaNaOpravu = []
-  let opraveneSlova = []
-  objectArray.forEach(slovo => {
-    if (slovo.oprava !== null){
-      slovaNaOpravu.push(slovo)
+function markMistakes() {
+  let wordsForCorrection = []
+  const seen = new Set()
+  objectArray = objectArray.filter(item =>{
+    if (seen.has(item.original)) {
+      return false
+    } else {
+      seen.add(item.original)
+      return true
+    }
+  }) 
+  objectArray.forEach(word => {
+    if (word.correction !== null){
+      wordsForCorrection.push(word)
     }
   })
-  slovaNaOpravu.forEach(slovo => {
-    console.log("bruh")
+  wordsForCorrection.forEach(word => {
     google.script.run
-      .opravaSlov(slovo)
+      .wordCorrection(word)
   })
 }
 
-function smazaniSlov() {
+function deleteWords() {
   google.script.run
-    .smazaniSlov()
+    .deleteWords()
 }
 
-function detekceOpakovani() {
+function repetitionDetection() {
+  responses = []
   google.script.run
     .withSuccessHandler(sendTextForRepetition)
     .withFailureHandler(onFailure)
@@ -133,8 +194,7 @@ function detekceOpakovani() {
         }
         const data = await response.json()
         responses.push(data)
-        const kontrolaOprav = responses[0].check
-        updateOprav(objectArray, kontrolaOprav)
+        correctionUpdate(objectArray, responses[0].check)
     } catch (error) {
         console.error('Error:', error);
         return null 
@@ -155,7 +215,56 @@ async function sendTextForRepetition(result) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json()
-        console.log(data)
+        responses = Object.keys(data)
+        responses.forEach(word => {
+          const regex = "\\b" + word + "\\b" 
+          google.script.run
+            .markRepetition(regex)
+        })
+    } catch (error) {
+        console.error('Error:', error);
+        return null 
+    }
+}
+
+async function fillTheSentence() {
+  let sentenceToFill = inputField1.value
+  try {
+        const response = await fetch('http://127.0.0.1:8000/api/ai-text-continue/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ sentence: sentenceToFill }) 
+        })
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json()
+        outputField1.value = data
+    } catch (error) {
+        console.error('Error:', error);
+        return null 
+    }
+}
+
+async function answerTheQuestion() {
+  let question = inputField2.value
+  try {
+        const response = await fetch('http://127.0.0.1:8000/api/ai-response/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ sentence: question }) 
+        })
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json()
+        outputField2.value = data
     } catch (error) {
         console.error('Error:', error);
         return null 
