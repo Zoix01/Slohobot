@@ -19,12 +19,14 @@
     </style>
   </head>
   <body>
-    <button id="b1">nalezeni chyb</button>
+    <button id="b1">nalezení chyb</button>
     <button id="b2" style ="margin-top: 5px;">oprava chyb</button>
+    <button id="b3" style ="margin-top: 5px;">opakování slov</button>
 <script>
   // variables
   const btn1 = document.getElementById("b1")
   const btn2 = document.getElementById("b2")
+  const btn3 = document.getElementById("b3")
   let textDokumentu = []
   let responses = []
   let objectArray = []
@@ -33,6 +35,7 @@
   // functions
   btn1.addEventListener("click", getParagraphsText)
   btn2.addEventListener("click", smazaniSlov)
+  btn3.addEventListener("click", detekceOpakovani)
 
   function getParagraphsText() {
     textDokumentu = []
@@ -47,7 +50,7 @@
 
   function getTextForServer(){
     google.script.run
-      .withSuccessHandler(sendDataToServer)
+      .withSuccessHandler(sendTextForCorrection)
       .withFailureHandler(onFailure)
       .extractTextForServer()
   }
@@ -97,18 +100,25 @@ function oznaceniChyb() {
     }
   })
   slovaNaOpravu.forEach(slovo => {
+    console.log("bruh")
     google.script.run
       .opravaSlov(slovo)
   })
 }
 
 function smazaniSlov() {
-  console.log("12")
   google.script.run
     .smazaniSlov()
 }
+
+function detekceOpakovani() {
+  google.script.run
+    .withSuccessHandler(sendTextForRepetition)
+    .withFailureHandler(onFailure)
+    .extractTextForServer()
+}
   // server communication
-  async function sendDataToServer(result) {
+  async function sendTextForCorrection(result) {
     try {
         const response = await fetch('http://127.0.0.1:8000/api/process-sentence/', {
             method: 'POST',
@@ -116,7 +126,7 @@ function smazaniSlov() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ sentence: result }) 
-        });
+        })
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -125,6 +135,27 @@ function smazaniSlov() {
         responses.push(data)
         const kontrolaOprav = responses[0].check
         updateOprav(objectArray, kontrolaOprav)
+    } catch (error) {
+        console.error('Error:', error);
+        return null 
+    }
+}
+
+async function sendTextForRepetition(result) {
+  try {
+        const response = await fetch('http://127.0.0.1:8000/api/detect-repeated-words/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ sentence: result }) 
+        })
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json()
+        console.log(data)
     } catch (error) {
         console.error('Error:', error);
         return null 
